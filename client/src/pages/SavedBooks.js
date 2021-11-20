@@ -8,15 +8,19 @@ import {
 } from 'react-bootstrap';
 
 
-// TODO:  import the two hooks from Apollo Client you'll be using below
+
+import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { removeBookId } from '../utils/localStorage';
 
+
 import Auth from '../utils/auth';
 
 const SavedBooks = () => {
-  // TODO: Call the QUERY_ME query and destructure the loading and data response properties
+  
+  const { loading, data } = useQuery(QUERY_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
   const userData = data?.me || {};
@@ -38,7 +42,7 @@ const SavedBooks = () => {
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
-      console.error(err);
+      console.error(err); 
     }
   };
 
